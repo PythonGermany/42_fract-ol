@@ -26,14 +26,21 @@ uint32_t	transform_color_range(t_dta *dta)
 {
 	int	c;
 
-	c = range(255 * 4, dta->iter, (*dta->f)(dta)) - dta->cs;
-	if (c <= 255)
+	c = range(255 * 6 + 1, dta->iter, (*dta->f)(dta));
+	if (c == 255 * 6 + 1)
+		return (get_color(0, 0, 0, 255));
+	c += dta->cs;
+	if (c <= 255 && !dta->cs)
 		return (get_color(c, 0, 0, c));
+	if (c <= 255 && dta->cs)
+		return (get_color(255, 0, 255 - c, 255));
 	if (c <= 255 * 2)
-		return (get_color(0, 255 - c, 0, 255));
+		return (get_color(255, c - 255, 0, 255));
 	if (c <= 255 * 3)
-		return (get_color(0, 0, 255 - c, 255));
+		return (get_color(255 * 3 - c, 255 , 0, 255));
 	if (c <= 255 * 4)
-		return (get_color(255 - c, 255 - c, 255 - c, 255));
-	return (get_color(0, 0, 0, 255));
+		return (get_color(0, 255, c - 255 * 3, 255));
+	if (c < 255 * 5)
+		return (get_color(0, 255 * 5 - c, 255, 255));
+	return (get_color(c - 255 * 5, 0, 255, 255));
 }

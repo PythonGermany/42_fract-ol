@@ -34,7 +34,7 @@ void	key_hook(void *dta)
 	if (mlx_is_key_down(tmp->mlx, MLX_KEY_R))
 		populate_dta(tmp);
 	if (mlx_is_mouse_down(tmp->mlx, MLX_MOUSE_BUTTON_RIGHT))
-		tmp->cs = tmp->cs % 245 + 5;
+		tmp->cs = (tmp->cs % (254 * 6)) + 6;
 	calculate_window(tmp);
 }
 
@@ -82,7 +82,7 @@ void	mouse_hook(mouse_key_t bt, action_t ac, modifier_key_t md, void *dta)
 			return ;
 		tmp->xs += (x_start + (x_stop - WIDTH) / 2) * tmp->scale / WIDTH;
 		tmp->ys -= (y_start + (y_stop - HEIGHT) / 2) * tmp->scale / HEIGHT;
-		if (y_stop <= x_stop / 16 * 9)
+		if (y_stop < x_stop)
 			tmp->scale *= ((double)x_stop / WIDTH);
 		else
 			tmp->scale *= ((double)y_stop / HEIGHT);

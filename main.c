@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/11/29 13:07:45 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/11/29 22:23:20 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,18 +92,9 @@ void	calculate_window(t_dta *dta)
 		i2 = 0;
 		while (i2 < WIDTH)
 		{
-			if (dta->argv[1][0] == 'j')
-			{
-				dta->x = ((i2 - WIDTH / 2.0) * dta->scale) / WIDTH + dta->xs;
-				dta->y = -((i - HEIGHT / 2.0) * dta->scale) / HEIGHT + dta->ys;
-			}
-			else
-			{
-				dta->re = ((i2 - WIDTH / 2.0) * dta->scale) / WIDTH + dta->xs;
-				dta->im = -((i - HEIGHT / 2.0) * dta->scale) / HEIGHT + dta->ys;
-			}
-			mlx_put_pixel(dta->img, i2, i, transform_color_range(dta));
-			i2++;
+			dta->x = ((i2 - WIDTH / 2.0) * dta->scale) / WIDTH + dta->xs;
+			dta->y = ((HEIGHT / 2.0 - i) * dta->scale) / HEIGHT + dta->ys;
+			mlx_put_pixel(dta->img, i2++, i, transform_color_range(dta));
 		}
 		i++;
 	}
@@ -113,8 +104,8 @@ int	main(int argc, char **argv)
 {
 	t_dta	dta[1];
 
-	if (argc < 2 || ft_strlen(argv[1]) != 1 \
-		|| (argv[1][0] != 'j' && argv[1][0] != 'm' && argv[1][0] != 't'))
+	if (argc < 2 || ft_strlen(argv[1]) != 1 || \
+		(argv[1][0] != 'j' && argv[1][0] != 'm' && argv[1][0] != 't'))
 		return (ft_printf("Use: %s ['m' or \"j [double] [double]\" or 't']\n", \
 			argv[0]), 1);
 	if (argv[1][0] == 'j' && \
