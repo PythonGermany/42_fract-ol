@@ -15,8 +15,8 @@
 
 # include "MLX42.h"
 
-# define WIDTH 400
-# define HEIGHT 400
+# define WIDTH 500
+# define HEIGHT 500
 
 typedef struct s_dta
 {
@@ -33,8 +33,17 @@ typedef struct s_dta
 	double		x;
 	double		y;
 	int			cs;
+	int			cs_active;
 	int			param[4];
 }	t_dta;
+
+typedef struct s_coord
+{
+	int	x_start;
+	int	y_start;
+	int	x_stop;
+	int	y_stop;
+}	t_coord;
 
 //Fractals
 int			julia(t_dta *dta);

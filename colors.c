@@ -23,7 +23,7 @@ uint32_t	get_color(int r, int g, int b, int a)
 {
 	return ((r <<= 24) + (g <<= 16) + (b <<= 8) + (a & 0xFF));
 }
-#include <stdio.h>
+
 uint32_t	tcr(int iter, int curr, int *cs)
 {
 	int	c;
@@ -38,9 +38,9 @@ uint32_t	tcr(int iter, int curr, int *cs)
 	c += *cs;
 	if (c >= COLOR_MAX)
 		c -= COLOR_MAX;
-	if (!*cs && c < 256 * ++fa)
+	if (*cs < 256 && curr < iter / 2 && c < 256 * ++fa)
 		return (get_color(c, 0, 0, c));
-	if (*cs && c < 256 * ++fa)
+	if ((*cs >= 256 || curr >= iter / 2) && c < 256 * ++fa)
 		return (get_color(255, 0, 255 - c, 255));
 	if (c < 256 * ++fa)
 		return (get_color(255, c - 256, 0, 255));

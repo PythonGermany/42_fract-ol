@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/11/30 23:52:10 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:14:41 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	populate_dta(t_dta *dta)
 	dta->ys = 0;
 	dta->iter = 50;
 	dta->cs = 0;
+	dta->cs_active = 0;
 	if (dta->argv[1][0] == 'j')
 	{
 		dta->re = ft_precision_atoi(dta->argv[2]);
