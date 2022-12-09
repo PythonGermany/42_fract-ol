@@ -12,6 +12,8 @@
 
 #include "fractol.h"
 
+#define COLOR_MAX 256 * 6
+
 int	range(int out_max, int in_max, int in_curr)
 {
 	return ((double)in_curr / in_max * out_max);
@@ -21,33 +23,34 @@ uint32_t	get_color(int r, int g, int b, int a)
 {
 	return ((r <<= 24) + (g <<= 16) + (b <<= 8) + (a & 0xFF));
 }
-
-uint32_t	tcr(int iter, int curr, int cs)
+#include <stdio.h>
+uint32_t	tcr(int iter, int curr, int *cs)
 {
 	int	c;
-	int max = 255 * 6 + 1;
 	int fa;
 
 	fa = 0;
-	c = range(max, iter, curr);
-	if (c == max)
+	c = range(COLOR_MAX, iter, curr);
+	if (c == COLOR_MAX)
 		return (get_color(0, 0, 0, 255));
-	c += cs;
-	if (c > max)
-		c -= max;
-	if (cs <= 255 && c <= 255 * ++fa)
+	if (*cs >= COLOR_MAX)
+		*cs = 0;
+	c += *cs;
+	if (c >= COLOR_MAX)
+		c -= COLOR_MAX;
+	if (*cs < 256 && c < 256 * ++fa)
 		return (get_color(c, 0, 0, c));
-	if (cs > 255 && c <= 255 * ++fa)
+	if (*cs >= 256 && c < 256 * ++fa)
 		return (get_color(255, 0, 255 - c, 255));
-	if (c <= 255 * ++fa)
-		return (get_color(255, c - 255, 0, 255));
-	if (c <= 255 * ++fa)
-		return (get_color(255 * fa - c, 255 , 0, 255));
-	if (c <= 255 * ++fa)
-		return (get_color(0, 255, c - 255 * (fa - 1), 255));
-	if (c <= 255 * ++fa)
-		return (get_color(0, 255 * fa - c, 255, 255));
-	return (get_color(c - 255 * (fa - 1), 0, 255, 255));
+	if (c < 256 * ++fa)
+		return (get_color(255, c - 256, 0, 255));
+	if (c < 256 * ++fa)
+		return (get_color(256 * fa - c - 1, 255 , 0, 255));
+	if (c < 256 * ++fa)
+		return (get_color(0, 255, c - 256 * (fa - 1), 255));
+	if (c < 256 * ++fa)
+		return (get_color(0, 256 * fa - c - 1, 255, 255));
+	return (get_color(c - 256 * (fa - 1), 0, 255, 255));
 }
 
 // uint32_t	lin_inter(uint32_t c1, uint32_t c2, double f)

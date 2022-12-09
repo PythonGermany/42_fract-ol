@@ -42,7 +42,7 @@ void	key_hook(void *dta)
 		populate_dta(tmp);
 	key_act_i(tmp->mlx, MLX_KEY_MINUS, &tmp->iter, tmp->iter / 1.1 + 1);
 	key_act_i(tmp->mlx, MLX_KEY_EQUAL, &tmp->iter, tmp->iter * 1.1);
-	key_act_i(tmp->mlx, MLX_KEY_C, &tmp->cs, tmp->cs % (254 * 6) + 6);
+	key_act_i(tmp->mlx, MLX_KEY_C, &tmp->cs, tmp->cs + 8);
 	key_act_d(tmp->mlx, MLX_KEY_UP, &tmp->ys, 0.02 * tmp->scale);
 	key_act_d(tmp->mlx, MLX_KEY_DOWN, &tmp->ys, -0.02 * tmp->scale);
 	key_act_d(tmp->mlx, MLX_KEY_LEFT, &tmp->xs, -0.02 * tmp->scale);
@@ -60,7 +60,7 @@ void	key_hook(void *dta)
 	int msec = diff * 1000 / CLOCKS_PER_SEC;
 	ms_g += msec%1000;
 	i++;
-	printf("%d milliseconds, av: %d\nScale: %f, %d iter\nXparam %f, Yparam %f\n\n", msec%1000, ms_g / i, tmp->scale, tmp->iter, tmp->re, tmp->im);
+	printf("%d milliseconds, av: %d\nScale: %f, %d iter\nXparam %f, Yparam %f\nCshift: %d\n\n", msec%1000, ms_g / i, tmp->scale, tmp->iter, tmp->re, tmp->im, tmp->cs);
 
 }
 

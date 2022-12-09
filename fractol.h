@@ -43,7 +43,7 @@ int			tricorn(t_dta *dta);
 
 //Colors
 uint32_t	get_color(int r, int g, int b, int a);
-uint32_t	tcr(int iter, int curr, int cs);
+uint32_t	tcr(int iter, int curr, int *cs);
 //uint32_t	interpolate(int iter, double curr, int cs);
 
 //Hooks
