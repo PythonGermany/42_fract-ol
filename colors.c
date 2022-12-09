@@ -12,20 +12,28 @@
 
 #include "fractol.h"
 
-int range(int out_max, int in_max, int in_curr)
+int	range(int out_max, int in_max, int in_curr)
 {
 	return ((double)in_curr / in_max * out_max);
 }
 
-uint32_t get_color(int r, int g, int b, int a)
+uint32_t	get_color(int r, int g, int b, int a)
 {
 	return ((r <<= 24) + (g <<= 16) + (b <<= 8) + (a & 0xFF));
 }
 
-uint32_t transform_color_range(dta_t *dta)
+uint32_t	transform_color_range(t_dta *dta)
 {
-	int c;
+	int	c;
 
-	c = 255 - range(255, dta->iter, (*dta->f)(dta));
-	return (get_color(c, c, c, 255));
+	c = range(255 * 4, dta->iter, (*dta->f)(dta)) - dta->cs;
+	if (c <= 255)
+		return (get_color(c, 0, 0, c));
+	if (c <= 255 * 2)
+		return (get_color(0, 255 - c, 0, 255));
+	if (c <= 255 * 3)
+		return (get_color(0, 0, 255 - c, 255));
+	if (c <= 255 * 4)
+		return (get_color(255 - c, 255 - c, 255 - c, 255));
+	return (get_color(0, 0, 0, 255));
 }

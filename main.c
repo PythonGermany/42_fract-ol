@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/11/28 22:27:23 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/11/29 13:07:45 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/include/MLX42/MLX42.h"
 #include "fractol.h"
 #include "libft.h"
 
@@ -18,7 +17,7 @@ int	chk_precision(char *str)
 {
 	int	i;
 	int	precision;
-	
+
 	i = 0;
 	precision = 0;
 	if (str == NULL)
@@ -63,12 +62,13 @@ double	ft_precision_atoi(char *str)
 	return (nb);
 }
 
-void	populate_dta(dta_t *dta)
+void	populate_dta(t_dta *dta)
 {
 	dta->scale = 4;
 	dta->xs = 0;
 	dta->ys = 0;
-	dta->iter = 40;
+	dta->iter = 50;
+	dta->cs = 0;
 	if (dta->argv[1][0] == 'j')
 	{
 		dta->re = ft_precision_atoi(dta->argv[2]);
@@ -81,7 +81,7 @@ void	populate_dta(dta_t *dta)
 		dta->f = &tricorn;
 }
 
-void	calculate_window(dta_t *dta)
+void	calculate_window(t_dta *dta)
 {
 	size_t	i;
 	size_t	i2;
@@ -111,18 +111,20 @@ void	calculate_window(dta_t *dta)
 
 int	main(int argc, char **argv)
 {
-	dta_t	dta[1];
+	t_dta	dta[1];
 
-	if (argc < 2 || ft_strlen(argv[1]) != 1 ||
-		(argv[1][0] != 'j' && argv[1][0] != 'm' && argv[1][0] != 't'))
-		return (ft_printf("Use: %s ['m' or \"j [double] [double]\" or 't']\n",\
+	if (argc < 2 || ft_strlen(argv[1]) != 1 \
+		|| (argv[1][0] != 'j' && argv[1][0] != 'm' && argv[1][0] != 't'))
+		return (ft_printf("Use: %s ['m' or \"j [double] [double]\" or 't']\n", \
 			argv[0]), 1);
 	if (argv[1][0] == 'j' && \
 		(argc != 4 || chk_precision(argv[2]) || chk_precision(argv[3])))
 		return (ft_printf("Use: %s j [double] [double]\n", argv[0]), 1);
+	else if (argc != 2 && (argv[1][0] == 'm' || argv[1][0] == 't'))
+		return (ft_printf("Use: %s %s\n", argv[0], argv[1]), 1);
 	dta->mlx = mlx_init(WIDTH, HEIGHT, "fract-ol", true);
 	if (!dta->mlx)
-		return(1);
+		return (1);
 	dta->argv = argv;
 	populate_dta(dta);
 	dta->img = mlx_new_image(dta->mlx, WIDTH, HEIGHT);

@@ -12,7 +12,7 @@
 
 #include "fractol.h"
 
-int julia(dta_t *dta)
+int	julia(t_dta *dta)
 {
 	int		n;
 	double	x_buf;
@@ -28,7 +28,7 @@ int julia(dta_t *dta)
 	return (n);
 }
 
-int mandelbrot(dta_t *dta)
+int	mandelbrot(t_dta *dta)
 {
 	int		n;
 	double	x_re;
@@ -48,7 +48,7 @@ int mandelbrot(dta_t *dta)
 	return (n);
 }
 
-int tricorn(dta_t *dta)
+int	tricorn(t_dta *dta)
 {
 	int		n;
 	double	x_re;

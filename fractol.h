@@ -18,39 +18,41 @@
 # define WIDTH 500
 # define HEIGHT 500
 
-typedef struct dta_s
+typedef struct s_dta
 {
-	mlx_t *mlx;
-	mlx_image_t *img;
-	int (*f)(struct dta_s *);
-	char **argv;
-	double scale;
-	double xs;
-	double ys;
-	int iter;
-	double re;
-	double im;
-	double x;
-	double y;
-} dta_t;
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	int			(*f)(struct s_dta *);
+	char		**argv;
+	double		scale;
+	double		xs;
+	double		ys;
+	int			iter;
+	double		re;
+	double		im;
+	double		x;
+	double		y;
+	int			cs;
+}	t_dta;
 
 //Fractals
-int julia(dta_t *dta);
-int mandelbrot(dta_t *dta);
-int tricorn(dta_t *dta);
+int			julia(t_dta *dta);
+int			mandelbrot(t_dta *dta);
+int			tricorn(t_dta *dta);
 
 //Colors
-int range(int out_max, int in_max, int in_curr);
-uint32_t get_color(int r, int g, int b, int a);
-uint32_t transform_color_range(dta_t *dta);
+int			range(int out_max, int in_max, int in_curr);
+uint32_t	get_color(int r, int g, int b, int a);
+uint32_t	transform_color_range(t_dta *dta);
 
 //Hooks
-void key_hook(void *dta);
-void scroll_hook(double xdelta, double ydelta, void *param);
-void	mouse_hook(mouse_key_t bt, action_t ac, modifier_key_t md, void* dta);
+void		key_hook(void *dta);
+void		scroll_hook(double xdelta, double ydelta, void *param);
+void		mouse_hook(mouse_key_t bt, action_t ac, \
+				modifier_key_t md, void *dta);
 
 //Main
-void populate_dta(dta_t *dta);
-void calculate_window(dta_t *dta);
+void		populate_dta(t_dta *dta);
+void		calculate_window(t_dta *dta);
 
 #endif
