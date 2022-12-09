@@ -6,7 +6,7 @@
 /*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/11/27 17:02:25 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/11/27 22:40:00 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,28 @@ uint32_t get_color(int r, int g, int b, int a)
 	return ((r <<= 24) + (g <<= 16) + (b <<= 8) + (a & 0xFF));
 }
 
+uint32_t transform_color_range(dta_t *dta)
+{
+	int c;
+	int ret;
+	
+	if (dta->argv[1][0] == 'j')
+		ret = julia(dta);
+	else if (dta->argv[1][0] == 'm')
+		ret = mandelbrot(dta);
+	else
+		ret = tricorn(dta);
+	// if (ret >= dta->iter)
+	// 	return (0xFF);
+	c = range(255, dta->iter / 4, ret / 4);
+	//return (get_color(255 - c, 255, 255 - c , 255));
+	return (get_color(255 - c, 255 - c, 255 - c , 255));
+}
+
 void	calculate_window(dta_t *dta)
 {
 	size_t	i;
 	size_t	i2;
-	int c;
 
 	i = 0;
 	while (i < HEIGHT)
@@ -124,13 +141,7 @@ void	calculate_window(dta_t *dta)
 				dta->re = ((i2 - WIDTH / 2.0) * dta->scale) / WIDTH + dta->x_shift;
        			dta->im = -((i - HEIGHT / 2.0) * dta->scale) / HEIGHT + dta->y_shift;
 			}
-			if (dta->argv[1][0] == 'j')
-				c = 255 - range(255, dta->iter, julia(dta));
-			else if (dta->argv[1][0] == 'm')
-				c = 255 - range(255, dta->iter, mandelbrot(dta));
-			else
-				c = 255 - range(255, dta->iter, tricorn(dta));
-			mlx_put_pixel(dta->img, i2, i, get_color(c, 255, c, c));
+			mlx_put_pixel(dta->img, i2, i, transform_color_range(dta));
 			i2++;
 		}
 		i++;
