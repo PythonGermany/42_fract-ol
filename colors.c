@@ -38,9 +38,9 @@ uint32_t	tcr(int iter, int curr, int *cs)
 	c += *cs;
 	if (c >= COLOR_MAX)
 		c -= COLOR_MAX;
-	if (*cs < 256 && c < 256 * ++fa)
+	if (!*cs && c < 256 * ++fa)
 		return (get_color(c, 0, 0, c));
-	if (*cs >= 256 && c < 256 * ++fa)
+	if (*cs && c < 256 * ++fa)
 		return (get_color(255, 0, 255 - c, 255));
 	if (c < 256 * ++fa)
 		return (get_color(255, c - 256, 0, 255));

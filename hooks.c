@@ -60,7 +60,7 @@ void	key_hook(void *dta)
 	int msec = diff * 1000 / CLOCKS_PER_SEC;
 	ms_g += msec%1000;
 	i++;
-	printf("%d milliseconds, av: %d\nScale: %f, %d iter\nXparam %f, Yparam %f\nCshift: %d\n\n", msec%1000, ms_g / i, tmp->scale, tmp->iter, tmp->re, tmp->im, tmp->cs);
+	printf("%d milliseconds, av: %d\nScale: %.20f, %d iter\nXparam %f, Yparam %f\nCshift: %d\n\n", msec%1000, ms_g / i, tmp->scale, tmp->iter, tmp->re, tmp->im, tmp->cs);
 
 }
 
