@@ -89,8 +89,8 @@ void	scroll_hook(double xdelta, double ydelta, void *param)
 	if (ydelta < 0)
 	{
 		t->scale *= 1.2;
-		t->xs += (x - WIDTH / 2) * t->scale / WIDTH * -(1 - 1 / 1.2);
-		t->ys += (HEIGHT / 2 - y) * t->scale / HEIGHT * -(1 - 1 / 1.2);
+		t->xs -= (x - WIDTH / 2) * t->scale / WIDTH * (1 - 1 / 1.2);
+		t->ys -= (HEIGHT / 2 - y) * t->scale / HEIGHT * (1 - 1 / 1.2);
 	}
 }
 
