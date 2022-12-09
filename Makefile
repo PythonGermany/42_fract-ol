@@ -3,20 +3,20 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+         #
+#    By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 15:38:03 by rburgsta          #+#    #+#              #
-#    Updated: 2022/11/25 16:39:19 by rburgsta         ###   ########.fr        #
+#    Updated: 2022/11/27 10:34:27 by rburgsta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-GL_INC = "/Users/$(USER)/.brew/opt/glfw/lib/"
+#GL_INC = "/Users/$(USER)/.brew/opt/glfw/lib/"
 FLAGS = -Wall -Wextra -Werror
 
 FT_PATH = libft
-LIBFT_INC = $(FT_PATH)/includes
+LIBFT_INC = $(FT_PATH)
 MLX_PATH = MLX42
 MLX_INC = $(MLX_PATH)/include/MLX42
 
@@ -28,10 +28,10 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	make -C $(MLX_PATH)
 	make -C $(FT_PATH)
-	cc $(FLAGS) -o $(NAME) $(OBJ) -L$(MLX_PATH) -lmlx42 -L$(FT_PATH) -lft -L$(GL_INC) -lglfw
+	cc $(FLAGS) -o $(NAME) $(OBJ) -L$(MLX_PATH) -lmlx42 -L$(FT_PATH) -lft -lglfw -ldl
 
 %.o: %.c
-	cc $(FLAGS) -I$(MLX_INC) -I$(LIBFT_INC) -c $< -o $@ 
+	cc -c $(FLAGS) -I$(MLX_INC) -I$(LIBFT_INC) $^ 
 
 clean :
 	make -C $(MLX_PATH) clean
