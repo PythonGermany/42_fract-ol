@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+         #
+#    By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 15:38:03 by rburgsta          #+#    #+#              #
-#    Updated: 2022/11/28 10:24:30 by rburgsta         ###   ########.fr        #
+#    Updated: 2022/11/28 22:13:38 by rburgsta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT_INC = $(FT_PATH)
 MLX_PATH = MLX42
 MLX_INC = $(MLX_PATH)/include/MLX42
 
-SRC = main.c
+SRC = main.c fractals.c colors.c hooks.c
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
