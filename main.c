@@ -6,7 +6,7 @@
 /*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/11/30 02:27:57 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/11/30 14:08:26 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	populate_dta(t_dta *dta)
 
 void	calculate_window(t_dta *dta)
 {
-	size_t	i;
-	size_t	i2;
+	int	i;
+	int	i2;
 
 	i = 0;
 	while (i < HEIGHT)
@@ -92,8 +92,8 @@ void	calculate_window(t_dta *dta)
 		i2 = 0;
 		while (i2 < WIDTH)
 		{
-			dta->x = ((i2 - WIDTH / 2.0) * dta->scale) / WIDTH + dta->xs;
-			dta->y = ((HEIGHT / 2.0 - i) * dta->scale) / HEIGHT + dta->ys;
+			dta->x = (i2 - WIDTH / 2.0) * dta->scale / WIDTH + dta->xs;
+			dta->y = (HEIGHT / 2.0 - i) * dta->scale / HEIGHT + dta->ys;
 			mlx_put_pixel(dta->img, i2++, i, \
 				tcr(dta->iter, (*dta->f)(dta), dta->cs));
 		}

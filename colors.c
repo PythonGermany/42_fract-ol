@@ -25,24 +25,29 @@ uint32_t	get_color(int r, int g, int b, int a)
 uint32_t	tcr(int iter, int curr, int cs)
 {
 	int	c;
+	int max = 255 * 6 + 1;
+	int fa;
 
-	c = range(255 * 6 + 1, iter, curr);
-	if (c == 255 * 6 + 1)
+	fa = 0;
+	c = range(max, iter, curr);
+	if (c == max)
 		return (get_color(0, 0, 0, 255));
 	c += cs;
-	if (c <= 255 && !cs)
+	if (c > max)
+		c -= max;
+	if (cs <= 255 && c <= 255 * ++fa)
 		return (get_color(c, 0, 0, c));
-	if (c <= 255 && cs)
+	if (cs > 255 && c <= 255 * ++fa)
 		return (get_color(255, 0, 255 - c, 255));
-	if (c <= 255 * 2)
+	if (c <= 255 * ++fa)
 		return (get_color(255, c - 255, 0, 255));
-	if (c <= 255 * 3)
-		return (get_color(255 * 3 - c, 255 , 0, 255));
-	if (c <= 255 * 4)
-		return (get_color(0, 255, c - 255 * 3, 255));
-	if (c <= 255 * 5)
-		return (get_color(0, 255 * 5 - c, 255, 255));
-	return (get_color(c - 255 * 5, 0, 255, 255));
+	if (c <= 255 * ++fa)
+		return (get_color(255 * fa - c, 255 , 0, 255));
+	if (c <= 255 * ++fa)
+		return (get_color(0, 255, c - 255 * (fa - 1), 255));
+	if (c <= 255 * ++fa)
+		return (get_color(0, 255 * fa - c, 255, 255));
+	return (get_color(c - 255 * (fa - 1), 0, 255, 255));
 }
 
 // uint32_t	lin_inter(uint32_t c1, uint32_t c2, double f)

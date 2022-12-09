@@ -15,8 +15,8 @@
 
 # include "MLX42.h"
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 400
+# define HEIGHT 400
 
 typedef struct s_dta
 {

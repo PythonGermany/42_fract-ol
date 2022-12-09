@@ -60,8 +60,8 @@ int	tricorn(t_dta *dta)
 	y_im = 0;
 	while (x_re * x_re + y_im * y_im <= 4 && n < dta->iter)
 	{
-		x_buf = x_re * x_re - y_im * y_im + dta->re;
-		y_im = -2 * x_re * y_im + dta->im;
+		x_buf = x_re * x_re - y_im * y_im + dta->x;
+		y_im = -2 * x_re * y_im + dta->y;
 		x_re = x_buf;
 		n++;
 	}

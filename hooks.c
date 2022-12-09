@@ -17,37 +17,50 @@
 int i = 0;
 int ms_g = 0;
 
+void	key_act_d(mlx_t *mlx, keys_t key, double *n, double op)
+{
+	if (mlx_is_key_down(mlx, key))
+		*n += op;
+}
+
+void	key_act_i(mlx_t *mlx, keys_t key, int *n, int op)
+{
+	if (mlx_is_key_down(mlx, key))
+		*n = op;
+}
+
 void	key_hook(void *dta)
 {
 	t_dta	*tmp;
+	int32_t x;
+	int32_t y;
 
 	tmp = (t_dta *)dta;
 	if (mlx_is_key_down(tmp->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(tmp->mlx);
-	if (mlx_is_key_down(tmp->mlx, MLX_KEY_MINUS))
-		tmp->iter = tmp->iter / 1.1 + 1;
-	if (mlx_is_key_down(tmp->mlx, MLX_KEY_EQUAL))
-		tmp->iter = tmp->iter * 1.1 + 1;
-	if (mlx_is_key_down(tmp->mlx, MLX_KEY_UP))
-		tmp->ys += 0.02 * tmp->scale;
-	if (mlx_is_key_down(tmp->mlx, MLX_KEY_DOWN))
-		tmp->ys -= 0.02 * tmp->scale;
-	if (mlx_is_key_down(tmp->mlx, MLX_KEY_LEFT))
-		tmp->xs -= 0.02 * tmp->scale;
-	if (mlx_is_key_down(tmp->mlx, MLX_KEY_RIGHT))
-		tmp->xs += 0.02 * tmp->scale;
 	if (mlx_is_key_down(tmp->mlx, MLX_KEY_R))
 		populate_dta(tmp);
+	key_act_i(tmp->mlx, MLX_KEY_MINUS, &tmp->iter, tmp->iter / 1.1 + 1);
+	key_act_i(tmp->mlx, MLX_KEY_EQUAL, &tmp->iter, tmp->iter * 1.1);
+	key_act_i(tmp->mlx, MLX_KEY_C, &tmp->cs, tmp->cs % (254 * 6) + 6);
+	key_act_d(tmp->mlx, MLX_KEY_UP, &tmp->ys, 0.02 * tmp->scale);
+	key_act_d(tmp->mlx, MLX_KEY_DOWN, &tmp->ys, -0.02 * tmp->scale);
+	key_act_d(tmp->mlx, MLX_KEY_LEFT, &tmp->xs, -0.02 * tmp->scale);
+	key_act_d(tmp->mlx, MLX_KEY_RIGHT, &tmp->xs, 0.02 * tmp->scale);
 	if (mlx_is_mouse_down(tmp->mlx, MLX_MOUSE_BUTTON_RIGHT))
-		tmp->cs = (tmp->cs % (254 * 6)) + 6;
-	// clock_t diff;
-	// clock_t start = clock();
+	{
+		mlx_get_mouse_pos(tmp->mlx, &x, &y);
+		tmp->re = (x - WIDTH / 2) * tmp->scale / WIDTH;
+		tmp->im = (HEIGHT / 2 - y) * tmp->scale / HEIGHT;
+	}
+	clock_t diff;
+	clock_t start = clock();
 	calculate_window(tmp);
-	// diff = clock() - start;
-	// int msec = diff * 1000 / CLOCKS_PER_SEC;
-	// ms_g += msec%1000;
-	// i++;
-	// printf("Time taken %d seconds %d milliseconds av: %d\n", msec/1000, msec%1000, ms_g / i);
+	diff = clock() - start;
+	int msec = diff * 1000 / CLOCKS_PER_SEC;
+	ms_g += msec%1000;
+	i++;
+	printf("%d milliseconds, av: %d\nScale: %f, %d iter\nXparam %f, Yparam %f\n\n", msec%1000, ms_g / i, tmp->scale, tmp->iter, tmp->re, tmp->im);
 
 }
 
@@ -63,14 +76,14 @@ void	scroll_hook(double xdelta, double ydelta, void *param)
 	if (ydelta > 0)
 	{
 		tmp->scale /= 1.2;
-		tmp->xs += ((x - WIDTH / 2) * tmp->scale) / WIDTH * 0.2;
-		tmp->ys += ((HEIGHT / 2 - y) * tmp->scale) / HEIGHT * 0.2;
+		tmp->xs += (x - WIDTH / 2) * tmp->scale / WIDTH * 0.2;
+		tmp->ys += (HEIGHT / 2 - y) * tmp->scale / HEIGHT * 0.2;
 	}
 	if (ydelta < 0)
 	{
 		tmp->scale *= 1.2;
-		tmp->xs += ((x - WIDTH / 2) * tmp->scale) / WIDTH * -(1 - 1 / 1.2);
-		tmp->ys += ((HEIGHT / 2 - y) * tmp->scale) / HEIGHT * -(1 - 1 / 1.2);
+		tmp->xs += (x - WIDTH / 2) * tmp->scale / WIDTH * -(1 - 1 / 1.2);
+		tmp->ys += (HEIGHT / 2 - y) * tmp->scale / HEIGHT * -(1 - 1 / 1.2);
 	}
 }
 
