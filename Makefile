@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 15:38:03 by rburgsta          #+#    #+#              #
-#    Updated: 2022/11/27 22:25:42 by rburgsta         ###   ########.fr        #
+#    Updated: 2022/11/28 10:24:30 by rburgsta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
-#GL_INC = "/Users/$(USER)/.brew/opt/glfw/lib/"
+GL_INC = "/Users/$(USER)/.brew/opt/glfw/lib/"
 FLAGS = -Wall -Wextra -Werror
 
 FT_PATH = libft
@@ -28,7 +28,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	make -C $(MLX_PATH)
 	make -C $(FT_PATH)
-	cc $(FLAGS) -o $(NAME) $(OBJ) -L$(MLX_PATH) -lmlx42 -L$(FT_PATH) -lft -lglfw -ldl
+	cc $(FLAGS) -o $(NAME) $(OBJ) -L$(MLX_PATH) -lmlx42 -L$(FT_PATH) -lft -L$(GL_INC) -lglfw -ldl
 
 %.o: %.c
 	cc -c $(FLAGS) -I$(MLX_INC) -I$(LIBFT_INC) $^ 

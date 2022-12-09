@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/11/27 22:40:00 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:06:56 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <memory.h>
-#include <math.h>
 #define WIDTH 500
 #define HEIGHT 500
 
@@ -25,6 +24,7 @@ typedef struct dta_s
 {
 	mlx_t *mlx;
 	mlx_image_t	*img;
+	int (*f)(struct dta_s *);
 	char **argv;
 	double scale;
 	double x_shift;
@@ -105,19 +105,10 @@ uint32_t get_color(int r, int g, int b, int a)
 uint32_t transform_color_range(dta_t *dta)
 {
 	int c;
-	int ret;
 	
-	if (dta->argv[1][0] == 'j')
-		ret = julia(dta);
-	else if (dta->argv[1][0] == 'm')
-		ret = mandelbrot(dta);
-	else
-		ret = tricorn(dta);
-	// if (ret >= dta->iter)
-	// 	return (0xFF);
-	c = range(255, dta->iter / 4, ret / 4);
+	c = range(255, dta->iter, (*dta->f)(dta));
 	//return (get_color(255 - c, 255, 255 - c , 255));
-	return (get_color(255 - c, 255 - c, 255 - c , 255));
+	return (get_color(c, c, c, 255));
 }
 
 void	calculate_window(dta_t *dta)
@@ -181,9 +172,14 @@ void populate_dta(dta_t *dta)
 	dta->iter = 40;
 	if (dta->argv[1][0] == 'j')
 	{
-		dta->re = ft_precision_atoi(dta->argv[2]); // -0.835
-		dta->im = ft_precision_atoi(dta->argv[3]); // -0.2321
+		dta->re = ft_precision_atoi(dta->argv[2]);
+		dta->im = ft_precision_atoi(dta->argv[3]);
+		dta->f = &julia;
 	}
+	else if (dta->argv[1][0] == 'm')
+		dta->f = &mandelbrot;
+	else
+		dta->f = &tricorn;
 }
 
 void	hook(void *dta)
@@ -202,7 +198,7 @@ void	hook(void *dta)
 	if (mlx_is_key_down(temp->mlx, MLX_KEY_4))
 	{
 		temp->scale /= 1.05;
-		printf("Zoom: %lf\n", temp->scale);
+		printf("Scale: %lf\n", temp->scale);
 	}
 	if (mlx_is_key_down(temp->mlx, MLX_KEY_UP))
 		temp->y_shift += 0.01 * temp->scale;
