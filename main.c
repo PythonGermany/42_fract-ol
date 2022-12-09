@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 16:31:38 by rburgsta          #+#    #+#             */
-/*   Updated: 2022/12/01 12:14:41 by rburgsta         ###   ########.fr       */
+/*   Updated: 2022/12/02 21:54:39 by rburgsta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include "libft.h"
+#include <stdio.h>
 
 int	chk_precision(char *str)
 {
@@ -96,7 +97,7 @@ void	calculate_window(t_dta *dta)
 			dta->x = (i2 - WIDTH / 2.0) * dta->scale / WIDTH + dta->xs;
 			dta->y = (HEIGHT / 2.0 - i) * dta->scale / HEIGHT + dta->ys;
 			mlx_put_pixel(dta->img, i2++, i, \
-				tcr(dta->iter, (*dta->f)(dta), &dta->cs));
+			 	tcr(dta->iter, (*dta->f)(dta), &dta->cs));
 		}
 		i++;
 	}

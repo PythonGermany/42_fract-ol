@@ -15,8 +15,8 @@
 
 # include "MLX42.h"
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 400
+# define HEIGHT 400
 
 typedef struct s_dta
 {
@@ -46,23 +46,22 @@ typedef struct s_coord
 }	t_coord;
 
 //Fractals
-int			julia(t_dta *dta);
-int			mandelbrot(t_dta *dta);
-int			tricorn(t_dta *dta);
+int		julia(t_dta *dta);
+int		mandelbrot(t_dta *dta);
+int		tricorn(t_dta *dta);
 
 //Colors
-uint32_t	get_color(int r, int g, int b, int a);
-uint32_t	tcr(int iter, int curr, int *cs);
-//uint32_t	interpolate(int iter, double curr, int cs);
+int		get_color(int r, int g, int b, int a);
+int		tcr(int iter, int curr, int *cs);
 
 //Hooks
-void		key_hook(void *dta);
-void		scroll_hook(double xdelta, double ydelta, void *param);
-void		mouse_hook(mouse_key_t bt, action_t ac, \
+void	key_hook(void *dta);
+void	scroll_hook(double xdelta, double ydelta, void *param);
+void	mouse_hook(mouse_key_t bt, action_t ac, \
 				modifier_key_t md, void *dta);
 
 //Main
-void		populate_dta(t_dta *dta);
-void		calculate_window(t_dta *dta);
+void	populate_dta(t_dta *dta);
+void	calculate_window(t_dta *dta);
 
 #endif

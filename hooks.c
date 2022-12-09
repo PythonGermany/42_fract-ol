@@ -64,13 +64,10 @@ void	key_hook(void *dta)
 	int msec = diff * 1000 / CLOCKS_PER_SEC;
 	ms_g += msec%1000;
 	i++;
-	printf("%d milliseconds, %d average\n\
-		Scale: %.20f, %d iter\n\
-		Size of set (current window view = %fmm): %fkm\n\
-		Xparam %f, Yparam %f\n\
-		Cshift: %d\n\n", \
+	printf("%d milliseconds, %d average\nScale: %.15f, %d iter\nSize of set (current window view = %fmm): %fkm\nXparam %f, Yparam %f\nCshift: %d\nXshift: %.15f\nYshift: %.15f\n\n",\
 		msec%1000, ms_g / i, t->scale, t->iter, (float)WIDTH / 100, \
-		4 / t->scale / 1000000 * (WIDTH / 100), t->re, t->im, t->cs);
+		4 / t->scale / 1000000 * (WIDTH / 100), t->re, t->im, t->cs, \
+		t->xs, t->ys);
 
 }
 
