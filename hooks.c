@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
+#include <time.h>
+
+int i = 0;
+int ms_g = 0;
 
 void	key_hook(void *dta)
 {
@@ -35,7 +40,15 @@ void	key_hook(void *dta)
 		populate_dta(tmp);
 	if (mlx_is_mouse_down(tmp->mlx, MLX_MOUSE_BUTTON_RIGHT))
 		tmp->cs = (tmp->cs % (254 * 6)) + 6;
+	// clock_t diff;
+	// clock_t start = clock();
 	calculate_window(tmp);
+	// diff = clock() - start;
+	// int msec = diff * 1000 / CLOCKS_PER_SEC;
+	// ms_g += msec%1000;
+	// i++;
+	// printf("Time taken %d seconds %d milliseconds av: %d\n", msec/1000, msec%1000, ms_g / i);
+
 }
 
 void	scroll_hook(double xdelta, double ydelta, void *param)

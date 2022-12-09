@@ -33,6 +33,7 @@ typedef struct s_dta
 	double		x;
 	double		y;
 	int			cs;
+	int			param[4];
 }	t_dta;
 
 //Fractals
@@ -41,9 +42,9 @@ int			mandelbrot(t_dta *dta);
 int			tricorn(t_dta *dta);
 
 //Colors
-int			range(int out_max, int in_max, int in_curr);
 uint32_t	get_color(int r, int g, int b, int a);
-uint32_t	transform_color_range(t_dta *dta);
+uint32_t	tcr(int iter, int curr, int cs);
+//uint32_t	interpolate(int iter, double curr, int cs);
 
 //Hooks
 void		key_hook(void *dta);
