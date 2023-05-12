@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rburgsta <rburgsta@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: rburgsta <rburgsta@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 15:38:03 by rburgsta          #+#    #+#              #
-#    Updated: 2023/03/20 17:25:01 by rburgsta         ###   ########.fr        #
+#    Updated: 2023/05/12 07:13:09 by rburgsta         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fractol
 
 GL_INC = "/Users/$(USER)/.brew/opt/glfw/lib/"
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -O3
 
 FT_PATH = libft
 LIBFT_INC = $(FT_PATH)
@@ -47,6 +47,7 @@ clean :
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(FT_PATH) fclean
 	rm -f fract-gen
 
 re: fclean all
